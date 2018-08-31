@@ -1,0 +1,5 @@
+cpputil/
+projects/*
+
+!projects/cpputil.vcxproj
+!projects/cpputil.vcxproj.filters
