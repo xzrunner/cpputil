@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\include\cpputil\ClassInfo.h" />
     <ClInclude Include="..\..\..\include\cpputil\StringHelper.h" />
   </ItemGroup>
   <ItemGroup>
