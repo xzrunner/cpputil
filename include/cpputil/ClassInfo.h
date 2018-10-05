@@ -29,3 +29,32 @@ private:
 }; // ClassInfo
 
 }
+
+#define DECLARE_BASE_CLASS_INFO(type)                                          \
+public:                                                                        \
+	virtual const cpputil::ClassInfo<type>& GetClassInfo() const = 0;          \
+	static void Register(cpputil::ClassInfo<type>* ci);
+
+#define IMPLEMENT_BASE_CLASS_INFO(type, class, func)                           \
+void type::Register(cpputil::ClassInfo<type>* ci)                              \
+{                                                                              \
+	class::Instance()->func(ci);                                               \
+}
+
+#define DECLARE_CHILD_CLASS_INFO(base)                                         \
+public:                                                                        \
+	virtual const cpputil::ClassInfo<base>& GetClassInfo() const {             \
+		return m_s_classinfo;                                                  \
+	}                                                                          \
+                                                                               \
+	static auto& GetClassName() { return m_s_classinfo.GetClassName(); }       \
+                                                                               \
+private:                                                                       \
+	static cpputil::ClassInfo<base> m_s_classinfo;
+
+#define IMPLEMENT_CHILD_CLASS_INFO(base, child, name)                          \
+cpputil::ClassInfo<base> child::m_s_classinfo(                                 \
+	(#name),                                                                   \
+	[]()->std::shared_ptr<base> { return std::make_shared<child>(); },         \
+	[](cpputil::ClassInfo<base>* ci) { base::Register(ci); }                   \
+);
