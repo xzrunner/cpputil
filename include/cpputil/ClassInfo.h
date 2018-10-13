@@ -12,7 +12,7 @@ class ClassInfo
 {
 public:
 	ClassInfo(const std::string& class_name,
-		      std::function<std::shared_ptr<T>()> ctor,
+		      std::function<std::unique_ptr<T>()> ctor,
 		      std::function<void(cpputil::ClassInfo<T>*)> regist)
 		: m_class_name(class_name)
 		, m_ctor(ctor)
@@ -25,7 +25,7 @@ public:
 
 private:
 	std::string m_class_name;
-	std::function<std::shared_ptr<T>()> m_ctor = nullptr;
+	std::function<std::unique_ptr<T>()> m_ctor = nullptr;
 
 }; // ClassInfo
 
@@ -56,6 +56,6 @@ private:                                                                       \
 #define IMPLEMENT_CHILD_CLASS_INFO(base, child, name)                          \
 cpputil::ClassInfo<base> child::m_s_classinfo(                                 \
 	(#name),                                                                   \
-	[]()->std::shared_ptr<base> { return std::make_shared<child>(); },         \
+	[]()->std::unique_ptr<base> { return std::make_unique<child>(); },         \
 	[](cpputil::ClassInfo<base>* ci) { base::Register(ci); }                   \
 );
