@@ -13,9 +13,11 @@
   <ItemGroup>
     <ClInclude Include="..\..\..\include\cpputil\ClassInfo.h" />
     <ClInclude Include="..\..\..\include\cpputil\StringHelper.h" />
+    <ClInclude Include="..\..\..\include\cpputil\Tools.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\StringHelper.cpp" />
+    <ClCompile Include="..\..\..\source\Tools.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\include\cpputil\StringHelper.inl" />
