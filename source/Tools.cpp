@@ -32,17 +32,32 @@ std::string CamelCaseToUnderscore(const std::string& str)
     std::vector<std::string> tokens;
     StringHelper::Split(str, " ", tokens);
 
+
+
     std::string ret;
     for (auto& sub : tokens)
     {
         if (sub.empty()) {
             continue;
         }
-        sub[0] = std::tolower(sub[0]);
-        if (!ret.empty()) {
-            ret += "_";
+
+        bool first = true;
+        //bool begin = ret.empty();
+        for (auto& c : sub)
+        {
+            if (std::isupper(c))
+            {
+                if (!first) {
+                    ret.append("_");
+                }
+                ret += std::tolower(c);
+                first = false;
+            }
+            else
+            {
+                ret += c;
+            }
         }
-        ret += sub;
     }
     return ret;
 }
