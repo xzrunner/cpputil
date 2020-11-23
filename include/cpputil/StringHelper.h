@@ -22,6 +22,8 @@ public:
 
 	static std::string Format(const std::string str, ...);
 
+	static std::string Trim(const std::string& str);
+
 }; // StringHelper
 
 }
